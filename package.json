@@ -1,0 +1,32 @@
+{
+  "name": "sralify",
+  "version": "1.0.0",
+  "description": "Sralify — a fast, private, fully client-side compressor for PDFs and images. No uploads, no accounts, no limits.",
+  "private": false,
+  "license": "MIT",
+  "author": "im4tta",
+  "keywords": [
+    "sralify",
+    "pdf",
+    "image-compression",
+    "compressor",
+    "pdf-compression",
+    "client-side",
+    "privacy",
+    "static-site",
+    "pwa"
+  ],
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/im4tta/Sralify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/im4tta/Sralify/issues"
+  },
+  "homepage": "https://github.com/im4tta/Sralify#readme",
+  "devDependencies": {}
+}

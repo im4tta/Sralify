@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="title">Sralify — Make Files Light</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f43f5e">
+  <meta name="description" data-i18n="description"
+    content="Sralify — compress PDFs and images entirely in your browser. No uploads, no accounts, no limits. Files never leave your device.">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sralify — Make Files Light">
+  <meta property="og:description" content="Compress PDFs and images locally. Files never leave your browser.">
+  <meta property="og:image" content="assets/favicon-512.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Dark mode: applied before first paint to prevent flash -->
+  <script>
+    document.documentElement.classList.toggle(
+      'dark',
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    );
+  </script>
+  <link rel="stylesheet" href="css/sral.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- Header -->
+  <header>
+    <div class="header-row">
+      <div class="logo" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+             style="width:1.25rem;height:1.25rem">
+          <path d="M4 14.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3.5"/>
+          <path d="M8 11l4 4 4-4"/>
+          <path d="M12 3v12"/>
+        </svg>
+      </div>
+      <h1><span class="brand-light">Sral</span>ify</h1>
+      <button id="theme-btn" class="theme-btn" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button id="lang-btn" class="lang-btn" aria-label="Switch language" data-i18n="lang-btn">ខ្មែរ</button>
+    </div>
+    <p class="subtitle" data-i18n="subtitle">
+      Sralify shrinks PDFs and images locally in your browser. Drop one or many — files never leave your device.
+    </p>
+  </header>
+
+  <!-- PWA Install Banner -->
+  <div id="install-banner" class="install-banner" role="banner" aria-label="Install app">
+    <div class="install-banner-info">
+      <div class="install-icon-wrap" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem">
+          <path d="M4 14.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3.5"/>
+          <path d="M8 11l4 4 4-4"/>
+          <path d="M12 3v12"/>
+        </svg>
+      </div>
+      <div>
+        <div class="install-title" data-i18n="install-heading">Install Sralify</div>
+        <div class="install-desc" data-i18n="install-desc">Use offline · faster access · no browser tabs</div>
+      </div>
+    </div>
+    <div class="install-actions">
+      <button id="install-btn-main" class="btn-install" data-i18n="install-now">Install</button>
+      <button id="install-dismiss" class="btn-dismiss" aria-label="Dismiss install banner">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.125rem;height:1.125rem">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Drop Zone -->
+  <div id="dropzone" class="dropzone" role="button" tabindex="0"
+       aria-label="Drop files or click to browse">
+    <input id="file-input" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple>
+    <div class="dropzone-content">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="dropzone-icon">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="17 8 12 3 7 8"/>
+        <line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <div>
+        <p class="dropzone-text" data-i18n="drop-text" data-i18n-html="true">
+          Drop PDFs or images here or <span class="highlight">click to browse</span>
+        </p>
+        <p class="dropzone-hint" data-i18n="drop-hint">PDF · JPG · PNG · WebP — processed entirely in your browser</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <section id="settings-section">
+    <h2 class="section-title" data-i18n="presets-heading">Presets</h2>
+    <div class="presets" id="level-options" role="group" aria-label="Compression presets">
+      <button class="preset-card" data-scale="2.0" data-quality="0.85">
+        <div class="preset-title" data-i18n="preset-low">Low</div>
+        <div class="preset-desc" data-i18n="preset-low-desc">High quality · larger file</div>
+      </button>
+      <button class="preset-card selected" data-scale="1.5" data-quality="0.72">
+        <div class="preset-title" data-i18n="preset-recommended">Recommended</div>
+        <div class="preset-desc" data-i18n="preset-recommended-desc">Good quality · good compression</div>
+      </button>
+      <button class="preset-card" data-scale="1.1" data-quality="0.55">
+        <div class="preset-title" data-i18n="preset-extreme">Extreme</div>
+        <div class="preset-desc" data-i18n="preset-extreme-desc">Smaller file · lower quality</div>
+      </button>
+    </div>
+
+    <div class="controls">
+      <div id="pdf-only-settings">
+        <div class="control-group">
+          <div class="control-header">
+            <label class="control-label" for="scale-slider" data-i18n="scale-label">Render scale (PDF)</label>
+            <span class="control-value" id="scale-value">1.5</span>
+          </div>
+          <input type="range" id="scale-slider" class="slider" min="0.5" max="3.0" step="0.1" value="1.5">
+          <div class="slider-labels"><span>0.5×</span><span>3.0×</span></div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-header">
+          <label class="control-label" for="quality-slider" data-i18n="quality-label">Quality</label>
+          <span class="control-value" id="quality-value">0.72</span>
+        </div>
+        <input type="range" id="quality-slider" class="slider" min="0.10" max="1.00" step="0.05" value="0.72">
+        <div class="slider-labels"><span>0.10</span><span>1.00</span></div>
+      </div>
+
+      <div id="image-only-settings" class="controls-grid">
+        <div>
+          <label class="control-label" for="format-select" data-i18n="format-label">Output format</label>
+          <select id="format-select" style="margin-top:0.5rem">
+            <option value="auto" data-i18n="format-auto">Keep original</option>
+            <option value="webp" data-i18n="format-webp">WebP (smallest)</option>
+            <option value="jpeg" data-i18n="format-jpeg">JPEG</option>
+            <option value="png" data-i18n="format-png">PNG (lossless)</option>
+          </select>
+        </div>
+        <div>
+          <label class="control-label" for="resize-select" data-i18n="resize-label">Resize</label>
+          <select id="resize-select" style="margin-top:0.5rem">
+            <option value="0" data-i18n="resize-none">No resize</option>
+            <option value="1920" data-i18n="resize-1920">Max 1920px</option>
+            <option value="1280" data-i18n="resize-1280">Max 1280px</option>
+            <option value="1024" data-i18n="resize-1024">Max 1024px</option>
+            <option value="800" data-i18n="resize-800">Max 800px</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- File Queue -->
+  <section id="queue-section" class="hidden">
+    <div class="queue-header">
+      <h2 class="section-title" style="margin-bottom:0" data-i18n="files-heading">
+        Files (<span id="file-count">0</span>)
+      </h2>
+      <button id="clear-btn" class="btn-clear" data-i18n="clear-all">Clear all</button>
+    </div>
+    <div id="file-list" class="file-list" role="list"></div>
+  </section>
+
+  <!-- Action Buttons -->
+  <div class="actions-bar">
+    <button id="compress-btn" class="btn-primary" disabled data-i18n="compress-btn">Compress</button>
+    <button id="cancel-btn" class="btn-cancel hidden" data-i18n="cancel-btn">Cancel</button>
+    <button id="download-all-btn" class="btn-success hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:1.125rem;height:1.125rem">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      <span data-i18n="download-all">Download all (ZIP)</span>
+    </button>
+    <button id="share-btn" class="btn-secondary hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:1.125rem;height:1.125rem">
+        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+        <line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/>
+        <line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/>
+      </svg>
+      <span data-i18n="share-btn">Share savings</span>
+    </button>
+  </div>
+
+  <!-- Summary -->
+  <div id="summary" class="summary-card hidden">
+    <div class="summary-grid">
+      <div><div class="summary-label" data-i18n="original-total">Original</div>
+           <div class="summary-value" id="total-original">—</div></div>
+      <div><div class="summary-label" data-i18n="compressed-total">Compressed</div>
+           <div class="summary-value" id="total-compressed">—</div></div>
+      <div class="summary-saved"><div class="summary-label" data-i18n="saved">Saved</div>
+           <div class="summary-value" id="total-saved">—</div></div>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div id="error" class="error-box hidden" role="alert">
+    <span id="error-msg"></span>
+  </div>
+
+  <footer>
+    <span data-i18n="footer">100% client-side · no uploads · installable · works offline</span>
+  </footer>
+
+</div><!-- /#app -->
+
+<!-- Before/After Preview Modal -->
+<div id="preview-modal" class="preview-modal" role="dialog" aria-modal="true" aria-label="Before/after comparison">
+  <div class="preview-backdrop" id="preview-backdrop"></div>
+  <div class="preview-panel">
+    <div class="preview-header">
+      <span class="preview-title" data-i18n="preview-title">Quality Preview</span>
+      <button id="preview-close" class="preview-close" aria-label="Close preview">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem;height:1.25rem">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="ba-container" id="ba-container" aria-label="Drag to compare before and after">
+      <img class="ba-after-img" id="ba-after" alt="Compressed version">
+      <img class="ba-before-img" id="ba-before" alt="Original version"
+           style="clip-path: inset(0 50% 0 0)">
+      <div class="ba-divider" id="ba-divider">
+        <div class="ba-handle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem">
+            <polyline points="15 18 9 12 15 6"/><polyline points="9 18 3 12 9 6" transform="scale(-1,1) translate(-24,0)"/>
+          </svg>
+        </div>
+      </div>
+      <span class="ba-label-before" data-i18n="ba-original">Original</span>
+      <span class="ba-label-after" data-i18n="ba-compressed">Compressed</span>
+    </div>
+    <div class="preview-stats" id="preview-stats">
+      <div>
+        <div class="preview-stat-label" data-i18n="ba-original">Original</div>
+        <div class="preview-stat-value" id="ps-original">—</div>
+      </div>
+      <div>
+        <div class="preview-stat-label" data-i18n="ba-compressed">Compressed</div>
+        <div class="preview-stat-value" id="ps-compressed">—</div>
+      </div>
+      <div>
+        <div class="preview-stat-label" data-i18n="saved">Saved</div>
+        <div class="preview-stat-value stat-saved" id="ps-saved">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Full-page drag overlay -->
+<div id="drag-overlay" class="drag-overlay hidden" aria-hidden="true">
+  <div class="drag-overlay-card">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="drag-overlay-icon">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="17 8 12 3 7 8"/>
+      <line x1="12" y1="3" x2="12" y2="15"/>
+    </svg>
+    <p class="drag-overlay-text" data-i18n="drop-overlay">Drop files to add them</p>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toast-container" aria-live="polite" aria-atomic="false"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
