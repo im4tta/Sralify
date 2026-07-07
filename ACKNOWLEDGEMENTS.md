@@ -22,18 +22,11 @@ This project would not exist without the following open-source libraries and the
 - **Used for:** Bundling multiple compressed PDFs into a single ZIP download.
 - **Repo:** https://github.com/Stuk/jszip
 
-### [Tailwind CSS](https://tailwindcss.com/)
-- **Author:** Tailwind Labs and contributors
-- **License:** MIT
-- **Used for:** Utility-first styling via the browser CDN build.
-- **Repo:** https://github.com/tailwindlabs/tailwindcss
+## CDN
 
-## CDNs
-
-Third-party libraries are loaded from public CDNs at runtime:
+Third-party libraries are loaded from a public CDN at runtime:
 
 - [cdnjs](https://cdnjs.com/) — for PDF.js, jsPDF, JSZip
-- [jsDelivr](https://www.jsdelivr.com/) — for Tailwind CSS browser build
 
 If you fork this project for offline-first or air-gapped use, you can vendor these libraries into the repo and update the `<script>` and `<link>` tags accordingly.
 

@@ -1,28 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f43f5e"/>
-      <stop offset="100%" stop-color="#e11d48"/>
+      <stop offset="0%"   stop-color="#f43f5e"/>
+      <stop offset="100%" stop-color="#be123c"/>
     </linearGradient>
-    <linearGradient id="shine" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+    <radialGradient id="shine" cx="50%" cy="0%" r="70%">
+      <stop offset="0%"   stop-color="rgba(255,255,255,0.28)"/>
       <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-    </linearGradient>
+    </radialGradient>
+    <clipPath id="rr">
+      <rect width="512" height="512" rx="112" ry="112"/>
+    </clipPath>
   </defs>
 
-  <!-- Rounded square background -->
-  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
-  <!-- Subtle top shine -->
-  <rect width="64" height="32" rx="14" fill="url(#shine)"/>
+  <g clip-path="url(#rr)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <ellipse cx="256" cy="-20" rx="300" ry="240" fill="url(#shine)"/>
 
-  <!-- Letter S — bold, centered, white -->
-  <text
-    x="32" y="46"
-    font-family="ui-sans-serif, -apple-system, system-ui, sans-serif"
-    font-size="40"
-    font-weight="800"
-    fill="white"
-    text-anchor="middle"
-    letter-spacing="-2"
-  >S</text>
+    <!--
+      S centreline path.
+      Letter fits inside a ~200px wide × 320px tall box centred in the 512px canvas.
+      Centre x=256, top y=110, bottom y=410.
+      Stroke-width=56 (~27px half-width each side) → total letter width ≈200+56=256
+      which leaves ~128px of background visible on left+right — correct for an icon.
+    -->
+    <path
+      d="M 330,142
+         C 330,116  308,110  274,110
+         C 228,110  192,130  192,168
+         C 192,208  224,222  256,232
+         C 288,242  330,258  330,302
+         C 330,344  296,400  238,400
+         C 196,400  178,384  178,362"
+      fill="none"
+      stroke="rgba(255,255,255,0.96)"
+      stroke-width="54"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
 </svg>

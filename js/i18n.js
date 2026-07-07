@@ -43,12 +43,6 @@ export function applyLanguage() {
       el.textContent = t(key);
     }
   });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    el.placeholder = t(el.dataset.i18nPlaceholder);
-  });
-  document.querySelectorAll('[data-i18n-title]').forEach(el => {
-    el.title = t(el.dataset.i18nTitle);
-  });
   const metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) metaDesc.content = t('description');
   const langBtn = document.getElementById('lang-btn');

@@ -14,7 +14,7 @@ No uploads • No accounts • No limits • 100% private
 [![Deploy to Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://app.netlify.com/start/deploy?repository=https://github.com/im4tta/Sralify)
 [![License: MIT](https://img.shields.io/badge/License-MIT-rose?style=for-the-badge)](LICENSE)
 
-[**✨ Live Demo**](https://sralify.app) • [📦 Install as PWA](#-installable-pwa)
+[**✨ Live Demo**](https://sralify.vercel.app) • [📦 Install as PWA](#-installable-pwa)
 
 </div>
 

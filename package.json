@@ -28,5 +28,8 @@
     "url": "https://github.com/im4tta/Sralify/issues"
   },
   "homepage": "https://github.com/im4tta/Sralify#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "puppeteer": "^25.3.0",
+    "sharp": "^0.33.5"
+  }
 }
