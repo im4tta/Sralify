@@ -217,7 +217,7 @@ async function attachSuggestion(item) {
 
   // Render a chip below the file name
   const chip = document.createElement('button');
-  chip.className = 'suggestion-chip';
+  chip.className = 'suggestion-chip glass';
   chip.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
@@ -248,7 +248,7 @@ async function attachSuggestion(item) {
 // =====================
 function createFileRow(item) {
   const row = document.createElement('div');
-  row.className = 'file-row';
+  row.className = 'file-row glass';
   row.dataset.id = item.id;
   row.setAttribute('role', 'listitem');
   row.innerHTML = `
