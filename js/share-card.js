@@ -36,9 +36,9 @@ export function buildShareCard({ fileCount, savedPct, origBytes, compBytes, lang
 
   // Headline number
   ctx.fillStyle = '#e11d48';
-  ctx.font = 'bold 150px sans-serif';
+  ctx.font = 'bold 120px sans-serif';
   const pctLabel = `-${Math.max(0, savedPct).toFixed(0)}%`;
-  ctx.fillText(pctLabel, 80, 340);
+  ctx.fillText(pctLabel, 80, 330);
 
   ctx.fillStyle = '#334155';
   ctx.font = '600 34px sans-serif';

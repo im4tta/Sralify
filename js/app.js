@@ -275,13 +275,14 @@ function createFileRow(item) {
         </svg>
         <span class="dl-label">${t('download')}</span>
       </span>
-      <button class="btn-icon btn-preview hidden" title="${t('preview')}">
+      <button class="btn-preview hidden" title="${t('preview')}">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
              style="width:1rem;height:1rem">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
           <circle cx="12" cy="12" r="3"/>
         </svg>
+        <span class="preview-label">${t('preview')}</span>
       </button>
       <button class="btn-icon btn-recompress hidden" title="${t('recompress')}">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -812,7 +813,6 @@ document.getElementById('install-btn-main')?.addEventListener('click', async () 
   installPromptEvent.prompt();
   const result = await installPromptEvent.userChoice;
   if (result.outcome === 'accepted') {
-    showToast(t('app-installed'), 'success');
     if (banner) banner.classList.remove('visible');
   }
   installPromptEvent = null;

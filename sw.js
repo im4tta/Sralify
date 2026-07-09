@@ -2,7 +2,7 @@
 // once it's been opened at least once. Only same-origin assets are
 // precached — CDN libraries (PDF.js etc.) are loaded on demand and cached
 // by the browser's normal HTTP cache, not duplicated here.
-const CACHE = 'sralify-v3';
+const CACHE = 'sralify-v4';
 const ASSETS = [
   './',
   './index.html',
