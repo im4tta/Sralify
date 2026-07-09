@@ -6,3 +6,4 @@ build/input.css
 *.log
 .DS_Store
 Thumbs.db
+.kiro/
