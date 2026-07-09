@@ -646,6 +646,9 @@ select:hover, select:focus { border-color: var(--rose-400); outline: none; }
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(244,63,94,0.35);
 }
+.btn-preview:not(.hidden) {
+  display: flex;
+}
 .btn-preview:hover { 
   background: var(--rose-600); 
   transform: translateY(-1px);
