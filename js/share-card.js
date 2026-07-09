@@ -1,59 +1,70 @@
 // --- Generate a shareable "savings card" PNG (pure Canvas, no deps) ---
 export function buildShareCard({ fileCount, savedPct, origBytes, compBytes, lang, labels }) {
-  const W = 1200, H = 630;
+  const W = 640, H = 360;
   const canvas = document.createElement('canvas');
   canvas.width = W;
   canvas.height = H;
   const ctx = canvas.getContext('2d');
 
-  // Background
+  // Background - dark gradient matching favicon
   const grad = ctx.createLinearGradient(0, 0, W, H);
-  grad.addColorStop(0, '#fff1f2');
-  grad.addColorStop(1, '#ffffff');
+  grad.addColorStop(0, '#1e2a4a');
+  grad.addColorStop(1, '#111827');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, W, H);
 
-  // Rose accent blob
-  ctx.fillStyle = 'rgba(244,63,94,0.10)';
+  // Decorative circle (subtle)
+  ctx.strokeStyle = 'rgba(243, 211, 138, 0.15)';
+  ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.arc(W - 80, 80, 260, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.arc(W / 2, H / 2, 120, 0, Math.PI * 2);
+  ctx.stroke();
 
-  // Brand mark
+  // Icon (rounded square with S - matching favicon style)
+  const iconSize = 48;
+  const iconX = 32, iconY = 28;
   ctx.fillStyle = '#f43f5e';
-  roundRect(ctx, 80, 80, 64, 64, 16);
+  roundRect(ctx, iconX, iconY, iconSize, iconSize, 10);
   ctx.fill();
-  ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 34px sans-serif';
+  
+  // Draw feather + S simplified mark
+  ctx.fillStyle = 'rgba(243, 211, 138, 1)';
+  ctx.font = 'bold 26px sans-serif';
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'center';
-  ctx.fillText('S', 80 + 32, 80 + 34);
+  ctx.fillText('S', iconX + iconSize / 2, iconY + iconSize / 2 + 1);
 
+  // Brand name
   ctx.textAlign = 'left';
-  ctx.fillStyle = '#0f172a';
-  ctx.font = 'bold 44px sans-serif';
-  ctx.fillText('Sralify', 164, 112);
+  ctx.fillStyle = '#f3d38a';
+  ctx.font = 'bold 24px sans-serif';
+  ctx.fillText('Sralify', iconX + iconSize + 12, iconY + iconSize / 2 + 1);
 
-  // Headline number
-  ctx.fillStyle = '#e11d48';
-  ctx.font = 'bold 120px sans-serif';
+  // Headline - percentage saved
+  ctx.fillStyle = '#f3d38a';
+  ctx.font = 'bold 80px sans-serif';
+  ctx.textAlign = 'center';
   const pctLabel = `-${Math.max(0, savedPct).toFixed(0)}%`;
-  ctx.fillText(pctLabel, 80, 330);
+  ctx.fillText(pctLabel, W / 2, H / 2 + 30);
 
-  ctx.fillStyle = '#334155';
-  ctx.font = '600 34px sans-serif';
-  ctx.fillText(labels.smaller, 80, 400);
+  // "smaller" label
+  ctx.fillStyle = 'rgba(243, 211, 138, 0.7)';
+  ctx.font = '500 20px sans-serif';
+  ctx.fillText(labels.smaller, W / 2, H / 2 + 65);
 
   // Stats row
-  ctx.font = '500 26px sans-serif';
-  ctx.fillStyle = '#64748b';
-  ctx.fillText(`${labels.files}: ${fileCount}`, 80, 470);
-  ctx.fillText(`${labels.before}: ${formatBytes(origBytes)}`, 80, 510);
-  ctx.fillText(`${labels.after}: ${formatBytes(compBytes)}`, 80, 550);
+  ctx.textAlign = 'left';
+  ctx.font = '500 16px sans-serif';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+  const statsY = H - 50;
+  ctx.fillText(`${labels.files}: ${fileCount}`, 40, statsY);
+  ctx.fillText(`${labels.before}: ${formatBytes(origBytes)}`, 200, statsY);
+  ctx.fillText(`${labels.after}: ${formatBytes(compBytes)}`, 380, statsY);
 
-  ctx.font = '400 24px sans-serif';
-  ctx.fillStyle = '#94a3b8';
-  ctx.fillText(labels.tagline, 80, 600);
+  // Tagline
+  ctx.font = '400 13px sans-serif';
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+  ctx.fillText('sralify.vercel.app', 40, H - 22);
 
   return canvas;
 }
